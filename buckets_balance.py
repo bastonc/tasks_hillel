@@ -7,9 +7,9 @@
 # Answer should contain 1 (if bracket order is correct) or 0 (if incorrect) for each of test-cases, separated by spaces.
 
 class Buckets:
-    def __init__(self):
+    def __init__(self, buckets_list: list = [["(", ")"], ["{", "}"], ["[", "]"], ["<", ">"]]):
         self.bucket_open = list()
-        self.buckets = [["(", ")"], ["{", "}"], ["[", "]"], ["<", ">"]]
+        self.buckets = buckets_list
 
     def open_add(self, char: str) -> None:
         self.bucket_open.append(char)
