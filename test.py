@@ -1,5 +1,7 @@
 import unittest
 
+import pytest
+
 from formater import formatted_name
 from fibonachi import Fibonacci
 from unittest import TestCase
@@ -7,30 +9,38 @@ from unittest import TestCase
 
 class TestFibonacci(TestCase):
     def setUp(self):
-        self.fibonacci_test_suite = [
-            [1, 1], [2, 1], [3, 2], [4, 3],
-            [5, 5], [6, 8], [7, 13], [8, 21],
-            [9, 34], [10, 55], [11, 89], [12, 144]
-        ]
+        self.fib = Fibonacci()
 
-    def test_fibonacci_data_suite(self):
-        fib = Fibonacci()
-        for n, expected_number in self.fibonacci_test_suite:
-            actual_number = fib(n)
-            self.assertEqual(expected_number, actual_number)
-
-    def test_fibonacci_1_2_5(self):
-        fib = Fibonacci()
-        x = fib(1)
+    def test_fibonacci_1(self):
+        x = self.fib(1)
         self.assertEqual(1, x, f"Filed 1-st the fibonacci = {x} - FAILED")
-        x = fib(2)
+
+    def test_fibonacci_2(self):
+        x = self.fib(2)
         self.assertEqual(1, x, f"Filed 2-nd the fibonacci = {x} - FAILED")
-        x = fib(5)
+
+    def test_fibonacci_5(self):
+        x = self.fib(5)
         self.assertEqual(5, x, f"Filed 5-th the fibonacci = {x} - FAILED")
 
-    def test_fibonachi_negative_figure(self):
-        fib = Fibonacci()
-        self.assertRaises(ValueError, fib, -1)
+    def test_fibonacci_negative_figure(self):
+        self.assertRaises(ValueError, self.fib, -1)
+
+    def test_fibonacci_zero(self):
+        x = self.fib(0)
+        self.assertEqual(0, x, f"Filed 0-th the fibonacci = {x} - FAILED")
+
+    def test_fibonacci_big_figure(self):
+        x = self.fib(100)
+        self.assertEqual(354224848179261915075, x, f"Filed 100-th the fibonacci = {x} - FAILED")
+
+    def test_fibonacci_over_big_figure(self):
+        self.assertRaises(RecursionError, self.fib, 1000)
+
+
+@pytest.mark.timeout(1)
+def test_fibonacci_long_time_runing():
+    Fibonacci().__call__(450)
 
 
 class TestFormatter(TestCase):
