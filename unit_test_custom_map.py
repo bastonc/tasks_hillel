@@ -24,7 +24,4 @@ class TestMapCustom(TestCase):
 
     def test_map_incorrect_type(self):
         with self.assertRaises(AttributeError):
-            self.map_custom(["key1", 2, "key2", 4], self.key_func, self.value_func), {"key1key1": 4,
-                                                                                      "key2key2": 8}
-
-
+            self.map_custom(["key1", 2, "key2", 4], self.key_func, self.value_func)
