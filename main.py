@@ -54,7 +54,10 @@ async def get_weather(weather_fut, api_weather, geo, weatherbit_key):
 async def get_day_image():
     image_path = await get_image()
     opener = "open" if sys.platform == "darwin" else "xdg-open"
-    subprocess.call([opener, image_path])
+    if platform.system() == "Windows":
+        os.startfile(image_path)
+    else:
+        subprocess.call([opener, image_path])
 
 
 async def format_output(loop, currency_fut, ip_fut, weather_fut, geo_fut):
